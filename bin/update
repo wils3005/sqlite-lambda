@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eu
+
+[[ -f .env ]] && source .env
+
+npx npm-check --update

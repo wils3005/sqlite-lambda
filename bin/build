@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -eu
+
+[[ -f .env ]] && source .env
+
+rm -rf build
+
+npx tsc --project tsconfig.build.json
+
+# npx esbuild \
+#   --bundle \
+#   --external:node_modules/* \
+#   --minify \
+#   --outfile=build/index.js \
+#   --platform=node \
+#   src/index.ts

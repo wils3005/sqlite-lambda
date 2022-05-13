@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -eu
+
+[[ -f .env ]] && source .env
+
+"$PWD/bin/build"
+
+node \
+  --require dotenv/config \
+  node_modules/.bin/sls deploy \
+  --verbose
+
+tput bel

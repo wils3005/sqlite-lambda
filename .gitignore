@@ -1,0 +1,9 @@
+.serverless/
+build/
+node_modules/
+tmp/
+
+.DS_Store
+.env*
+!.env.sample
+*.sqlite3

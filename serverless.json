@@ -1,0 +1,40 @@
+{
+  "custom": {
+    "dotenv": {
+      "exclude": [
+        "AWS_ACCESS_KEY_ID",
+        "AWS_REGION",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SECURITY_GROUP_ID",
+        "AWS_SESSION_TOKEN",
+        "AWS_SUBNET_ID"
+      ]
+    }
+  },
+  "frameworkVersion": "3",
+  "functions": {
+    "default": {
+      "events": [{ "httpApi": "*" }],
+      "fileSystemConfig": {
+        "arn": "${env:AWS_EFS_ARN}",
+        "localMountPath": "/mnt/efs"
+      },
+      "handler": "build/index.handler"
+    }
+  },
+  "package": {
+    "patterns": ["!**", "build/**"]
+  },
+  "plugins": ["serverless-dotenv-plugin", "serverless-offline"],
+  "provider": {
+    "architecture": "x86_64",
+    "name": "aws",
+    "region": "${env:AWS_REGION}",
+    "runtime": "nodejs14.x",
+    "vpc": {
+      "securityGroupIds": ["${env:AWS_SECURITY_GROUP_ID}"],
+      "subnetIds": ["${env:AWS_SUBNET_ID}"]
+    }
+  },
+  "service": "sqlite-lambda"
+}
